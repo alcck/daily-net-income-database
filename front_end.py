@@ -1,9 +1,6 @@
 from tkinter import *
 import back_end
 
-win = Tk()
-win.wm_title("Daily Net Income DB V.0.1")
-
 def get_selected_row(event):
     global selected_row
     index = list1.curselection()[0]
@@ -11,17 +8,19 @@ def get_selected_row(event):
     e1.delete(0, END)
     e1.insert(END, selected_row[1])
     e2.delete(0, END)
-    e1.insert(END, selected_row[2])
+    e2.insert(END, selected_row[2])
     e3.delete(0, END)
-    e1.insert(END, selected_row[3])
+    e3.insert(END, selected_row[3])
     e4.delete(0, END)
-    e1.insert(END, selected_row[4])
+    e4.insert(END, selected_row[4])
     e5.delete(0, END)
-    e1.insert(END, selected_row[5])
+    e5.insert(END, selected_row[5])
     e6.delete(0, END)
-    e1.insert(END, selected_row[6])
+    e6.insert(END, selected_row[6])
 
 def delete_command():
+    index = list1.curselection()[0]
+    selected_row = list1.get(index)
     back_end.delete(selected_row[0])
 
 def view_command():
@@ -49,7 +48,10 @@ def calculate_command():
     n4 = clo_int.get()
     n5 = book_int.get()
     x = int(n1) - (int(n2) + int(n3) + int(n4) + int(n5))
-    e7.insert(END, x)
+    e7.insert(END, str(x))
+
+win = Tk()
+win.wm_title("Daily Net Income DB V.0.1")
 
 
 l1 = Label(win, text='Date')
