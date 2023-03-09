@@ -4,10 +4,8 @@ import back_end
 win = Tk()
 win.wm_title("Daily Net Income DB V.0.1")
 
-selected_row = 0
-
-
-def get_selected_row():
+def get_selected_row(event):
+    global selected_row
     index = list1.curselection()[0]
     selected_row = list1.get(index)
     e1.delete(0, END)
@@ -23,28 +21,24 @@ def get_selected_row():
     e6.delete(0, END)
     e1.insert(END, selected_row[6])
 
+def delete_command():
+    back_end.delete(selected_row[0])
 
 def view_command():
     list1.delete(0, END)
     for row in back_end.view():
         list1.insert(END, row)
 
-
 def search_command():
     list1.delete(0, END)
-    for row in back_end.search(date_text.get()):
+    for row in back_end.search(date_text.get(), earn_int.get(), gro_int.get(), ent_int.get(), clo_int.get(), book_int.get(), netincome_text.get()):
         list1.insert(END, row)
 
-
 def add_command():
-    back_end.insert(date_text.get(), earn_int.get(), gro_int.get(), ent_int.get(), clo_int.get(), book_int.get())
+    back_end.insert(date_text.get(), earn_int.get(), gro_int.get(), ent_int.get(), clo_int.get(), book_int.get(), netincome_text.get())
     list1.delete(0, END)
     list1.insert(END,
-                 (date_text.get(), earn_int.get(), gro_int.get(), ent_int.get(), clo_int.get(), book_int.get()))
-
-
-def delete_command():
-    back_end.delete(selected_row[0])
+                 (date_text.get(), earn_int.get(), gro_int.get(), ent_int.get(), clo_int.get(), book_int.get(),  netincome_text.get()))
 
 
 def calculate_command():
@@ -54,7 +48,7 @@ def calculate_command():
     n3 = ent_int.get()
     n4 = clo_int.get()
     n5 = book_int.get()
-    x = n1 - (n2 + n3 + n4 + n5)
+    x = int(n1) - (int(n2) + int(n3) + int(n4) + int(n5))
     e7.insert(END, x)
 
 
@@ -83,27 +77,27 @@ date_text = StringVar()
 e1 = Entry(win, textvariable=date_text)
 e1.grid(row=0, column=1)
 
-earn_int = IntVar()
+earn_int = StringVar()
 e2 = Entry(win, textvariable=earn_int)
 e2.grid(row=0, column=3)
 
-gro_int = IntVar()
+gro_int = StringVar()
 e3 = Entry(win, textvariable=gro_int)
 e3.grid(row=1, column=1)
 
-ent_int = IntVar()
+ent_int = StringVar()
 e4 = Entry(win, textvariable=ent_int)
 e4.grid(row=1, column=3)
 
-clo_int = IntVar()
+clo_int = StringVar()
 e5 = Entry(win, textvariable=clo_int)
 e5.grid(row=2, column=1)
 
-book_int = IntVar()
+book_int = StringVar()
 e6 = Entry(win, textvariable=book_int)
 e6.grid(row=2, column=3)
 
-netincome_text = IntVar()
+netincome_text = StringVar()
 e7 = Entry(win, textvariable=netincome_text)
 e7.grid(row=3, column=1)
 
